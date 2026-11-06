@@ -20,4 +20,10 @@ on another computer has not been tested.
 
 The stable launcher completed successfully with exit code 0. After the repo
 was renamed to `mcpr_trajectories`, its project-file check was updated and all R
-sources were syntax-checked again. The report and numerical inputs are unchanged.
+sources were syntax-checked again. The numerical inputs and analytical report contents are unchanged; the saved HTML has the path-only correction documented below.
+
+## File-location portability update
+
+The launcher now accepts input, fit-cache, output, staging and counterfactual-CSV locations as parameters. The report source uses `params$counterfactual_csv`. Two absolute user-directory references in the saved HTML were replaced: the helper link is project-relative and the CSV argument displays the report parameter. All 49 HTML table blocks and all 109 embedded image elements remain byte-identical to the previously published report. No DHS download, model fitting or full report rendering was performed for this portability update.
+
+The original report/source hashes are retained in `SOURCE_MANIFEST.json`; current packaged hashes and the reasons for changes are recorded separately. Previously missing `.gitignore` and `.gitattributes` files are restored. The latter disables line-ending normalization to preserve checksummed source/input bytes. The path validator now includes the saved HTML and documentation.

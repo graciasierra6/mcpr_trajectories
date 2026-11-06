@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-05",
+  "passed": true,
+  "cli_checks": [
+    "help",
+    "external inputs and cache with spaces",
+    "refit preparation without cache",
+    "missing input rejection",
+    "unknown option rejection",
+    "changed pinned input rejection",
+    "missing option value rejection"
+  ],
+  "staging_and_render_parameter_routing_checked": true,
+  "renderer_intercepted_before_analysis": true,
+  "unchanged_html_table_blocks": 49,
+  "unchanged_html_image_elements": 109,
+  "full_report_render_rerun": false,
+  "model_refit": false
+}

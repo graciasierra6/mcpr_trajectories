@@ -16,6 +16,7 @@ output:
     fig_height: 6
 params:
   min_surveys: 2
+  counterfactual_csv: "priority_geographies_counterfactual_ssa_2045_fpet_best_compromise.csv"
 ---
 
 ```{r setup, include=FALSE}
@@ -10023,7 +10024,7 @@ readr::write_csv(
       shift_from_baseline_pp,
       gap_to_40_after_scenario_pp
     ),
-  "priority_geographies_counterfactual_ssa_2045_fpet_best_compromise.csv"
+  params$counterfactual_csv
 )
 ```
 

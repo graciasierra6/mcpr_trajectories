@@ -63,13 +63,15 @@
     "path": ".gitattributes",
     "source": "bundles/dhs_mcpr_final_presentation_repo/.gitattributes",
     "source_sha256": "99047fcbf45af6a5961bae058665323a231c8130b79e58199107b1553ec6236f",
-    "packaged_sha256": "99047fcbf45af6a5961bae058665323a231c8130b79e58199107b1553ec6236f"
+    "packaged_sha256": "ee4b3e983ea88ee352f454863a3eec9e8a3fa62d3facbc66009debe55768aa82",
+    "packaging_changes": "Restored upload configuration with byte-preserving handling for checksummed source/input files."
   },
   {
     "path": ".gitignore",
     "source": "bundles/dhs_mcpr_final_presentation_repo/.gitignore",
     "source_sha256": "231026d839e32bf66fa736f1c59b2586e326c2e19f54d223a7835d03943c9a7b",
-    "packaged_sha256": "231026d839e32bf66fa736f1c59b2586e326c2e19f54d223a7835d03943c9a7b"
+    "packaged_sha256": "a4b526e44d83fed12fe0e2f8189160321b1f09271d662e0facbad6ee250c78bd",
+    "packaging_changes": "Restored missing upload configuration; excludes raw data, fit caches, credentials and generated work."
   },
   {
     "path": "holdout_model_comparison_30/holdout_design.csv",
@@ -117,13 +119,15 @@
     "path": "production_report.Rmd",
     "source": "bundles/dhs_mcpr_final_presentation_repo/dhs_analysis_fpet_best_compromise_canonical_ge2.Rmd",
     "source_sha256": "bec4f8719a39d4ee53ddd2fc0cebb62f99a78f76a7d79ad44d4f0a4b626ace16",
-    "packaged_sha256": "bec4f8719a39d4ee53ddd2fc0cebb62f99a78f76a7d79ad44d4f0a4b626ace16"
+    "packaged_sha256": "0b215df1c196c3e84218aaa4922e65be2a9307233b4d313aa4d50d31554982db",
+    "packaging_changes": "Adds counterfactual_csv output parameter; no model expressions or numerical inputs changed."
   },
   {
     "path": "production_report.html",
     "source": "dhs_analysis_fpet_best_compromise_canonical_ge2.html",
     "source_sha256": "87657a4c697798a15bddcb2b2f1deca7f7176be7d9f1957119127dbc63de832b",
-    "packaged_sha256": "87657a4c697798a15bddcb2b2f1deca7f7176be7d9f1957119127dbc63de832b"
+    "packaged_sha256": "ae3cdf66be411d8031a6ef67458f55215c383d8008f175706dc36fae7c42f9ab",
+    "packaging_changes": "Path-only portability correction: project-relative helper link and parameterized CSV argument; all 49 table blocks and 109 image elements unchanged."
   },
   {
     "path": "diagnostics/production_high_ess_diagnostics.csv",
@@ -142,5 +146,19 @@
     "source": "model_results_labeled_for_reporting/production_k_interval_before_after_extra_chains_summary.csv",
     "source_sha256": "b0aa338afb3f418132d45f5ff36eac8b09d8cedabd624cadec5b236298661133",
     "packaged_sha256": "b0aa338afb3f418132d45f5ff36eac8b09d8cedabd624cadec5b236298661133"
+  },
+  {
+    "path": "run_pipeline.R",
+    "source": "run_pipeline.R",
+    "source_sha256": "b86d0ff07a2c32986d72f128555067c87b9d849617a21365409b5d1f7c4667bb",
+    "packaged_sha256": "ff1732fd5d5f09d1bc0a3eaf1f6eb296a8e0942bc4e8fe851939fd7f62a66c85",
+    "packaging_changes": "Configurable aggregate input, saved fit, report output, staging and CSV locations; adds path-only preparation check."
+  },
+  {
+    "path": "scripts/validate_bundle.py",
+    "source": "scripts/validate_bundle.py",
+    "source_sha256": "6ca9b989b5ade4687031d8c065f629e7e2b816eb412570e5ef41027c7a9ecd49",
+    "packaged_sha256": "701b48e9b81e5bf867805d57560057d3641648a147ab5c0c649913216e100ddf",
+    "packaging_changes": "Extends portable-path checks to HTML/docs and accepts explicitly documented report packaging changes."
   }
 ]

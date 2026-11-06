@@ -34,11 +34,34 @@ dependencies are declared but not locked to the historical versions.
 4. Run `Rscript run_pipeline.R` from the repo root.
 5. Open `output/production_report.html`.
 
-The frozen root HTML is preserved. The cached-render command checks the pinned
+The saved report retains its numerical contents; its two old machine-path references have been replaced with a project-relative helper link and a parameterized CSV output argument. The cached-render command checks the pinned
 DHS, WB and WPP input hashes before reusing the fit; changed inputs require a refit. Each execution stages its sources and inputs
 under `work/run_TIMESTAMP/`; CSV exports stay there as internal artifacts.
 The fit cache is separate because its 484 MB RDS exceeds GitHub's normal file
 limit. It belongs in local storage or a release asset, not a normal Git commit.
+
+## Parameterized file locations
+
+Input and output locations can be supplied to `run_pipeline.R`; no machine-specific user directory is embedded. The launcher finds the project beside the script and can be invoked from another working directory. Relative arguments are resolved from this project directory.
+
+| Option | Default | Purpose |
+|---|---|---|
+| `--input-dir` | Project directory | Directory containing the three named aggregate input files listed below. |
+| `--fit-cache` | Documented production RDS path under the project | External or local saved production fit; used for cached rendering. |
+| `--output-dir` | `output` | Rendered HTML destination. |
+| `--work-dir` | `work` | Unique staging directories and internal outputs. |
+| `--counterfactual-csv` | Named CSV inside the run's staging directory | Optional destination for the counterfactual CSV. |
+| `--check-paths` | Off | Validate selected input locations, existence and applicable pinned hashes without downloading, fitting or rendering. |
+
+For example, supply your own locations in place of these generic placeholders:
+
+```sh
+Rscript run_pipeline.R --input-dir "/path/to/aggregate_inputs" --fit-cache "/path/to/production_fit.rds" --output-dir "/path/to/report_output" --work-dir "/path/to/staging" --counterfactual-csv "/path/to/report_output/counterfactual.csv"
+```
+
+Use the same path arguments with `--check-paths` for a preparation check. Use `--refit --check-paths` to check input locations when a production fit is not available; this does not run MCMC. A cached-render path check verifies file existence and the pinned input hashes, not the statistical validity of the supplied RDS. Existing defaults still use the bundled input files and separately supplied production cache.
+
+The full R Markdown accepts `params$counterfactual_csv`. Its default is the relative CSV filename. The launcher passes the selected destination into `rmarkdown::render`; the helper-script link in the saved HTML is project-relative. The archived numerical tables and embedded figures were not recomputed for this file-location update.
 
 ## DHS download -> data processing -> model -> full report
 
@@ -102,6 +125,5 @@ Rscript scripts/check_r_syntax.R
 
 See [validation](docs/VALIDATION.md) and [source hashes](docs/SOURCE_MANIFEST.json).
 Upload this folder's contents or push its local Git repository to a new GitHub
-repo. Do not upload the fit-cache ZIP as a source file. No remote is configured
-and nothing is published. No open-source license has been assumed; choose one
+repo. Do not upload the fit-cache ZIP as a source file. This package does not authenticate to GitHub or publish files automatically. No open-source license has been assumed; choose one
 before granting redistribution rights. Source-data terms continue to apply.

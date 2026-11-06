@@ -10,16 +10,19 @@ for rec in manifest:
     p=root/rec['path']
     if not p.is_file() or hashlib.sha256(p.read_bytes()).hexdigest()!=rec['packaged_sha256']:
         errors.append('Missing or changed source: '+rec['path'])
-    if p.suffix=='.html' and rec['source_sha256']!=rec['packaged_sha256']:
-        errors.append('Frozen report changed')
+    if p.suffix=='.html' and rec['source_sha256']!=rec['packaged_sha256'] and not rec.get('packaging_changes'):
+        errors.append('Report changed without a documented packaging change')
 source=(root/'production_report.Rmd').read_text(encoding='utf-8')
 if 'joint_histflex_low_persist_global_full_ge2_high_ess.rds' not in source:
     errors.append('Full report does not use high-ESS cache')
 if 'production_report.Rmd' not in (root/'run_pipeline.R').read_text(encoding='utf-8'):
     errors.append('Default pipeline does not render full report')
-for p in [*root.glob('*.R'),*root.glob('*.Rmd'),*(root/'scripts').glob('*.R')]:
-    if 'C:/Users/Owner' in p.read_text(encoding='utf-8'):
-        errors.append('Nonportable path: '+p.name)
+absolute_user_path=re.compile(r'(?:/Users/[A-Za-z0-9_.-]+/|/home/[A-Za-z0-9_.-]+/|[A-Za-z]:[\\/]+Users[\\/]+)')
+for p in root.rglob('*'):
+    if not p.is_file() or any(part in ('.git','work','output','joint_ks_fpet_style') for part in p.relative_to(root).parts):continue
+    if p.suffix.lower() not in ('.r','.rmd','.py','.md','.html','.json','.txt'):continue
+    if absolute_user_path.search(p.read_text(encoding='utf-8')):
+        errors.append('Nonportable user path: '+str(p.relative_to(root)))
 helper=(root/'scripts/fpet_model_helpers.R').read_text(encoding='utf-8')
 if 'filter(n_surveys >= 3)' in helper or 'filter(n_surveys >= 2)' not in helper:
     errors.append('Wrong country inclusion rule')
